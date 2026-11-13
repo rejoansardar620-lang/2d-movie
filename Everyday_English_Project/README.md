@@ -65,3 +65,9 @@ python -m unittest discover -s . -p 'test_*.py' -v
 ```
 
 The artwork remains a single-view cutout rig. Full turns, detailed fingers, and more expressive acting would require additional painted poses or a deformable mesh rig.
+
+## Hand anatomy and alarm action
+
+Near and far arms now use opposite hand silhouettes, mirrored thumb positions, and measured shoulder/elbow/wrist sprite anchors. Hand rotation follows the forearm, with intentional poses limited to 40 degrees of wrist bend. Held objects attach at the grip inside the fingers.
+
+The opening shot uses a staged wake/look/reach/press/return action: she faces the bedside clock, shifts only 32 pixels toward it, reaches below her face, touches its top button, and brings her arm back. Ringing marks disappear at contact. Regression checks sample all 240 opening frames for reachable targets, fingertip contact, and continuous wrist rotation, as well as opposite hand silhouettes and toothbrush grip contact.

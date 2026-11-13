@@ -17,6 +17,31 @@ def mix(a,b,u):return np.asarray(a)+(np.asarray(b)-a)*u
 def rot(p,a):
  r=math.radians(a);c,s=math.cos(r),math.sin(r);x,y=p;return np.array([c*x-s*y,s*x+c*y])
 def angle(p):return math.degrees(math.atan2(p[1],p[0]))-90
+def wrist_angle(forearm_angle,desired=None):
+ if desired is None:return forearm_angle
+ delta=(desired-forearm_angle+180)%360-180
+ return forearm_angle+float(np.clip(delta,-40,40))
+@lru_cache(maxsize=4)
+def hand_sprite(side,grip=False):
+ """Paired hands share a wrist attachment, with opposite thumb silhouettes."""
+ if grip:
+  pic=Image.new('RGBA',(48,64));d=ImageDraw.Draw(pic)
+  d.rounded_rectangle((7,0,29,32),radius=7,fill='#f5b77c',outline='#bb8058')
+  d.rounded_rectangle((5,23,38,55),radius=12,fill='#f5b77c',outline='#bb8058')
+  for x in (13,21,29):d.arc((x-5,29,x+6,50),-70,70,fill='#cc9162',width=1)
+  d.ellipse((24,20,43,38),fill='#f7bd87',outline='#bb8058');pivot=(16,8)
+ else:pic=parts['hand'].copy();pivot=(16,8)
+ if side=='far':
+  pic=ImageEnhance.Brightness(ImageOps.mirror(pic)).enhance(.91)
+  pivot=(pic.width-1-pivot[0],pivot[1])
+ return pic,pivot
+def limb_sprite(im,side,name,start,end,source_start,source_end):
+ pic=dark[name] if side=='far' else parts[name]
+ a=np.array(source_start,dtype=float);b=np.array(source_end,dtype=float)
+ if side=='far':
+  pic=ImageOps.mirror(pic);a[0]=pic.width-1-a[0];b[0]=pic.width-1-b[0]
+ vector=np.asarray(end)-start
+ place(im,pic,a,start,angle(vector)-angle(b-a),np.linalg.norm(vector)/np.linalg.norm(b-a))
 def place(im,pic,pivot,target,deg=0,scale=1):
  a=math.radians(deg);c,s=math.cos(a),math.sin(a);target=np.asarray(target);pivot=np.asarray(pivot)
  corners=np.array([[0,0],[pic.width,0],[0,pic.height],[pic.width,pic.height]],float)
@@ -63,11 +88,16 @@ def geom(c):
  if c.get('walk'):root[1]-=2*s*(1-math.cos(gait_phase(c)*math.tau*2))
  elif not c.get('lying'):root[1]+=1.1*s*math.sin(c.get('time',0)*math.tau/3.6)
  def p(v):return root+rot(np.array(v)*s,lean)
- neck=p((14,-208));ha=lean+c.get('nod',0);mouth=neck+rot(np.array([51,-69])*s,ha)
+ neck=p((14,-208));ha=lean+c.get('nod',0);mouth=neck+rot(np.array([-51 if c.get('head_flip') else 51,-69])*s,ha)
  return root,p,neck,ha,mouth
 def gait_phase(c):
  # Travel-driven phase keeps the stance foot stationary as the body eases.
  return c['x']*.62/c.get('stride',96)
+def grip_point(c,side,wrist):
+ p=geom(c)[1];s=c['s'];shoulder=p((52,-183) if side=='far' else (-55,-184))
+ elbow,solved=ik(shoulder,wrist,143*s,138*s,c.get('bend_'+side,1 if side=='near' else -1))
+ direction=wrist_angle(angle(solved-elbow),c.get('hand_'+side))
+ return solved+rot(np.array([-6 if side=='far' else 6,27])*s*.83,direction)
 def brush_pose(c,local):
  """Attach the bristles to the teeth and derive the handle/hand from that point."""
  _,p,_,ha,mouth=geom(c)
@@ -78,8 +108,31 @@ def brush_pose(c,local):
  tip=mouth+rot((4*math.sin(local*math.tau*2.4)*scrub,2),ha)
  contact=tip-rot(np.array([28,81])-pivot,deg)*size
  rest=p((68,45))
- wrist=mix(rest,contact,lift)
- return wrist,('brush',wrist,pivot,deg,size),lift
+ handle=mix(rest,contact,lift);wrist=handle.copy()
+ # The brush passes through the curled fingers, not through the wrist joint.
+ for _ in range(8):wrist+=handle-grip_point(c,'near',wrist)
+ return wrist,('brush',handle,pivot,deg,size),lift
+def wake_pose(local):
+ """Wake, lean slightly, reach around the face, tap the top, then withdraw."""
+ button=np.array([113.,622.]);reach_start=5.25;press_start=7.25;press_end=7.65;return_end=9.55
+ approach=ease((local-reach_start)/(press_start-reach_start))
+ withdraw=ease((local-press_end)/(return_end-press_end))
+ lean_in=ease((local-4.65)/1.5)*(1-ease((local-8.0)/1.55))
+ c=base(t=local);c.update(x=540-32*lean_in,y=652,s=.75,lean=-78+13*lean_in,
+     lying=True,eyes_closed=local<3.7,nod=0,head_flip=True,bend_near=-1,bend_far=1)
+ rest=np.array([474.,686.]);contact_wrist=button-rot(np.array([4.,80.])*.75*.83,90)
+ # Quadratic arc goes below the face and reaches above the clock before contact.
+ control=np.array([326.,729.])
+ u=approach*(1-withdraw)
+ wrist=(1-u)**2*rest+2*u*(1-u)*control+u*u*contact_wrist
+ _,p,_,_,_=geom(c);shoulder=p((-55,-184))
+ elbow,solved=ik(shoulder,wrist,143*.75,138*.75,-1)
+ forearm=angle(solved-elbow);turn=(90-forearm+180)%360-180;c['hand_near']=forearm+turn*ease(u)
+ actual_angle=wrist_angle(forearm,c['hand_near'])
+ fingertip=solved+rot(np.array([4.,80.])*.75*.83,actual_angle)
+ phase='sleep' if local<3.7 else 'look' if local<reach_start else 'reach' if local<press_start else 'press' if local<=press_end else 'return' if local<return_end else 'rest'
+ state={'phase':phase,'contact':press_start<=local<=press_end,'fingertip':fingertip,'button':button}
+ return c,{'near':wrist,'far':p((50,65))},state
 def puppet(im,t,c,targets=None):
  if c.get('flip'):
   cc=dict(c);cc['flip']=False;layer=Image.new('RGBA',(W,H));tt={k:(2*c['x']-v[0],v[1]) for k,v in (targets or {}).items()};r=puppet(layer,t,cc,tt);im.alpha_composite(ImageOps.mirror(layer),(round(2*c['x']-W),0));return {k:np.array([2*c['x']-v[0],v[1]]) for k,v in r.items()}
@@ -112,17 +165,18 @@ def puppet(im,t,c,targets=None):
    swing=25*math.sin(gait_phase(c)*math.tau)*(1 if side=='near' else -1) if c.get('walk') else 0;wrist=sh+rot((0,260*s),c.get('arm_'+side,swing)+c.get('lean',0))
   el,wrist=ik(sh,wrist,143*s,138*s,c.get('bend_'+side,1 if side=='near' else -1));aa=angle(el-sh);bb=angle(wrist-el)
   d=ImageDraw.Draw(im);r=22*s;d.ellipse((el[0]-r,el[1]-r,el[0]+r,el[1]+r),fill='#e8ad76' if side=='far' else '#f5b77c')
-  place(im,ps['forearm'],(24,10),el,bb,s)
+  limb_sprite(im,side,'forearm',el,wrist,(25,10),(31,148))
   if side=='near':
    d=ImageDraw.Draw(im);r=26*s;d.ellipse((sh[0]-r,sh[1]-r,sh[0]+r,sh[1]+r),fill='#f9ede1')
-  place(im,ps['upper_arm'],(33,12),sh,aa,s)
-  if c.get('grip_'+side):
-   d=ImageDraw.Draw(im);x,y=wrist;d.rounded_rectangle((x-9*s,y-8*s,x+27*s,y+22*s),radius=9*s,fill='#f6b87e',outline='#b77c52',width=1)
-   for k in range(3):d.line((x+(3+7*k)*s,y+3*s,x+(3+7*k)*s,y+17*s),fill='#cc9162',width=1)
-  else:place(im,ps['hand'],(22,8),wrist,c.get('hand_'+side,bb),s*.83)
+  limb_sprite(im,side,'upper_arm',sh,el,(37,12),(27,155))
+  hand,pivot=hand_sprite(side,c.get('grip_'+side,False))
+  place(im,hand,pivot,wrist,wrist_angle(bb,c.get('hand_'+side)),s*.83)
   return wrist
  far=arm('far');place(im,parts['torso'],(100,225),p((0,-2)),c.get('lean',0),s)
- blink=c.get('eyes_closed',False) or ((t+1.4)%4.1)<.12;shape=c.get('mouth_shape') or ('X' if c.get('silent_mouth') else shape_at(t));place(im,face(shape,blink),(112,212),neck,ha,s);near=arm('near')
+ blink=c.get('eyes_closed',False) or ((t+1.4)%4.1)<.12;shape=c.get('mouth_shape') or ('X' if c.get('silent_mouth') else shape_at(t))
+ head=face(shape,blink);head_pivot=(112,212)
+ if c.get('head_flip'):head=ImageOps.mirror(head);head_pivot=(head.width-1-112,212)
+ place(im,head,head_pivot,neck,ha,s);near=arm('near')
  return {'near':near,'far':far,'mouth':mouth,'neck':neck}
 def shadow(im,x,y=925,w=160):ImageDraw.Draw(im).ellipse((x-w/2,y-11,x+w/2,y+10),fill=(82,57,31,45))
 def base(x=800,s=.75,t=0):return {'x':x,'y':920-495*s,'s':s,'lean':0,'nod':0,'time':t}
@@ -171,8 +225,13 @@ def prop(name):
 def action_stage(si,t):
  local=t-si*10;b=beats(si);scene=scenes[si];im=bg(scene['background']).copy();targets={};after=[];c=base(t=t);a=scene['action']
  if a=='wake':
-  reach=ease((local-b[2])/.8)*(1-ease((local-8.4)/.8));c.update(x=540-130*reach,y=652,s=.75,lean=-78,lying=True,eyes_closed=local<b[1]+.25,nod=2*math.sin(local))
-  if reach>.05:targets['near']=mix((430,665),(118,674),reach)
+  c,targets,state=wake_pose(local)
+  # The visible button is on top of the painted clock; motion stops after the press.
+  d=ImageDraw.Draw(im);bx,by=state['button'];depress=2 if state['contact'] else 0
+  d.rounded_rectangle((bx-8,by-4+depress,bx+8,by+1+depress),radius=2,fill='#e7c879',outline='#7b7841')
+  if local<7.25:
+   pulse=round(2*math.sin(local*math.tau*4))
+   for x in (75,150):d.arc((x-6-pulse,628,x+6+pulse,648),100 if x<100 else -80,260 if x<100 else 80,fill='#8c7c48',width=2)
   puppet(im,t,c,targets);blanket(im,1,0)
  elif a=='stretch':
   up=ease(local/2);c.update(bend_near=-1,bend_far=1,x=540+130*up,y=652+8*up,s=.75,lean=-78*(1-up),lying=up<.85,feet=[(820,920),(868,920)],nod=-3*math.sin(local));p=geom(c)[1];st=ease((local-b[1])/.8)*(1-ease((local-8.6)/.7));targets['near']=mix(p((-55,75)),p((-155,-340)),st);targets['far']=mix(p((55,75)),p((155,-340)),st);puppet(im,t,c,targets);blanket(im,1,80*up)
@@ -216,7 +275,7 @@ def action_stage(si,t):
   w=ease((local-b[1])/max(1,b[2]-b[1]));c=base(640+440*w,.75,t);c.update(walk=local>=b[1] and local<b[2],phase=local*1.35);pick=ease(local/1.6);c['lean']=24*(1-pick);p=geom(c)[1];targets['far']=mix((c['x']+100,755),p((75,85)),pick);c['grip_far']=True;c['bend_near']=-1
   if local>b[2]:
    wave=ease((local-b[2])/.7);targets['near']=mix(p((-55,76)),p((-105,-270+14*math.sin(t*5))),wave);c['hand_near']=180*wave+12*math.sin(t*5)*wave
-  shadow(im,c['x']);joints=puppet(im,t,c,targets);after.append(('bag',joints['far'],(90,24),4*math.sin(t*3),.8))
+  shadow(im,c['x']);joints=puppet(im,t,c,targets);after.append(('bag',grip_point(c,'far',joints['far']),(90,24),4*math.sin(t*3),.8))
  for name,target,pivot,deg,s in after:place(im,prop(name),pivot,target,deg,s)
  return im
 CAMERAS=[(1.37,670,590),(1.24,750,535),(1,960,540),(1.08,1340,500),(1.16,930,520),(1,960,540),(1.24,1300,420),(1.24,1300,420),(1.24,1300,420),(1.24,1300,420),(1.06,1050,520),(1,960,540)]

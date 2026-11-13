@@ -39,12 +39,21 @@
     "subtitles": "mov_text",
     "audio_integrated_lufs": -16.02,
     "audio_true_peak_dbtp": -1.58,
-    "regression_tests_passed": 10,
+    "regression_tests_passed": 16,
     "full_video_decode": "passed",
     "source_content_cache": "all 12 scenes current",
     "episode2_still_previews": "passed; full voice and video regeneration not run",
     "voice_performance": "existing narration remastered; new synthesis not run",
-    "visual_review": "12 scene contact sheet and selected brushing, stretching, combing, walking poses",
-    "limitations": "single-view cutout rig; no full-body turnarounds or articulated fingers"
+    "visual_review": "12-scene contact sheet; sampled alarm approach/contact/withdrawal, stretching, brushing, combing and wave poses",
+    "limitations": "single-view cutout rig; no full-body turnarounds or articulated fingers",
+    "hand_and_alarm_revision": {
+      "opposite_hand_silhouettes": "verified",
+      "wrist_bend_limit_degrees": 40,
+      "alarm_frames_checked": 240,
+      "body_translation_pixels": 32,
+      "maximum_wrist_rotation_per_frame_degrees": 10.76,
+      "alarm_action": "wake, look, reach, press top button, withdraw",
+      "grip_contact": "verified over all 240 brushing frames"
+    }
   }
 }

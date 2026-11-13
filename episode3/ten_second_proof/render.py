@@ -134,9 +134,9 @@ def pose_for(role, t, cue):
                     point=sin_window(t,4.25,7.07)*1.15,
                     lean=.02*math.sin(t*1.4))
     if role == "boy":
-        move=ease(t/2.05)
+        move=ease(t/1.24)
         return Pose(1190-548*move,657,
-                    activity="run" if t<2.05 else "idle", talk=lip,
+                    activity="run" if t<1.24 else "idle", talk=lip,
                     gaze=-.70 if t>2.0 else -.4,
                     blink=max(pulse(t,2.63,.07),pulse(t,7.80,.07)),
                     joy=.8*smooth((t-7.75)/.3),
@@ -331,7 +331,8 @@ def camera_shot(t):
     if t < 3.58:return (445,325,1.93)
     if t < 4.38:return None
     if t < 7.35:return (850,340,1.95)
-    if t < 7.78:return None
+    if t < 8.0:return None
+    if t >= 9.50:return None
     return (635,359,1.75)
 
 
@@ -343,7 +344,7 @@ def render_frame(t):
         p=poses[role]
         if p.activity in ("walk","run"):
             mode="walk"
-        elif (role=="dad" and 1.24<=t<3.57) or (role=="mom" and 4.38<=t<7.34) or (role=="boy" and 8.0<=t<9.5):
+        elif (role=="dad" and 1.24<=t<3.58) or (role=="mom" and 4.38<=t<7.35) or (role=="boy" and 8.0<=t<9.5):
             mode="talk"
         else:
             mode="idle"

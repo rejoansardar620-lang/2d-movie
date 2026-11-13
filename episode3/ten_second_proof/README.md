@@ -9,12 +9,13 @@ method is worth expanding into additional ten-second shots **after feedback**.
 
 | Time | Movie action |
 |---|---|
-| 0.0–1.24 | Wide garden entrance: Rahul walks in; Aarav runs past his family. Different foot/knee and hand/elbow motions are keyed to distinct gait tempos. |
+| 0.0–1.24 | Wide garden entrance: Rahul walks in; Aarav runs past his family. Different foot/knee and hand/elbow motions are keyed to distinct gait tempos. The run ends at the next camera cut. |
 | 1.24–3.58 | Cut closer to Rahul's greeting. He changes to a purposeful open-palm speaking pose; audio-driven mouth motion, eyes and brows. |
 | 3.58–4.38 | Wide view: Priya finishes her separate walk-in, Anaya watches. |
 | 4.38–7.35 | Priya's closer conversational shot; her raised hand, eyebrow movement and audio-timed mouth. |
-| 7.35–7.78 | Brief family reaction bridge. |
-| 7.78–10.00 | Aarav's playful 'snacks?' punchline and an expressive, close enough family response. |
+| 7.35–8.00 | Brief family reaction bridge. |
+| 8.00–9.50 | Aarav's playful 'snacks?' punchline in a closer conversational shot. |
+| 9.50–10.00 | Return to the whole family for a reaction and gesture reset without visible pose popping. |
 
 ## Technical approach: open-source, no proprietary animation plugins
 

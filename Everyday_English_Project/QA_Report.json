@@ -39,7 +39,7 @@
     "subtitles": "mov_text",
     "audio_integrated_lufs": -16.02,
     "audio_true_peak_dbtp": -1.58,
-    "regression_tests_passed": 16,
+    "regression_tests_passed": 19,
     "full_video_decode": "passed",
     "source_content_cache": "all 12 scenes current",
     "episode2_still_previews": "passed; full voice and video regeneration not run",
@@ -54,6 +54,17 @@
       "maximum_wrist_rotation_per_frame_degrees": 10.76,
       "alarm_action": "wake, look, reach, press top button, withdraw",
       "grip_contact": "verified over all 240 brushing frames"
+    },
+    "palm_and_colour_revision": {
+      "review_section_seconds": [
+        6,
+        14
+      ],
+      "raised_hand_view": "both palms facing forward",
+      "alarm_hand_view": "side press",
+      "skin_colour_matching": "mirrored RGBA equality for all 4 hand poses and both arm segments",
+      "grip_layering": "thumb in front of held handle",
+      "review_clip": "Hand_Review_6-14s.mp4, 8 seconds, 192 frames, full decode passed"
     }
   }
 }

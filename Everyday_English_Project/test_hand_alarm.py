@@ -1,13 +1,36 @@
 """Handedness, wrist anatomy, and alarm contact regression checks."""
 import unittest
+from unittest.mock import patch
 
 import numpy as np
-from PIL import ImageOps
+from PIL import Image, ImageOps
 
 import action_render as renderer
 
 
 class HandAnatomyTests(unittest.TestCase):
+    def test_matching_skin_colour_for_every_hand_view(self):
+        for pose in ('relaxed','palm','press','grip'):
+            near,_=renderer.hand_sprite('near',pose=pose)
+            far,_=renderer.hand_sprite('far',pose=pose)
+            np.testing.assert_array_equal(np.asarray(ImageOps.mirror(near)),np.asarray(far))
+
+    def test_arm_skin_is_not_darkened_on_far_side(self):
+        for name,start,end in [('forearm',(25,10),(31,148)),('upper_arm',(37,12),(27,155))]:
+            pictures=[]
+            for side in ('near','far'):
+                with patch.object(renderer,'place') as place:
+                    renderer.limb_sprite(Image.new('RGBA',(500,500)),side,name,np.array([100,100]),np.array([100,240]),start,end)
+                pictures.append(place.call_args.args[1])
+            np.testing.assert_array_equal(np.asarray(ImageOps.mirror(pictures[0])),np.asarray(pictures[1]))
+
+    def test_raised_hands_show_palms_in_requested_section(self):
+        for t in (13,13.5,14):
+            with patch.object(renderer,'hand_sprite',wraps=renderer.hand_sprite) as hands:
+                renderer.action_stage(1,t)
+            self.assertEqual({call.args[0] for call in hands.call_args_list},{'near','far'})
+            self.assertTrue(all(call.args[2]=='palm' for call in hands.call_args_list))
+
     def test_brush_handle_passes_through_gripping_fingers(self):
         for local in np.arange(240)/24:
             c=renderer.base(1230,.8,70+local)

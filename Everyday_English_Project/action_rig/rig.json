@@ -1,0 +1,119 @@
+{
+  "head": {
+    "file": "head.png",
+    "size": [
+      200,
+      274
+    ],
+    "source_box": [
+      150,
+      8,
+      399,
+      352
+    ]
+  },
+  "torso": {
+    "file": "torso.png",
+    "size": [
+      190,
+      235
+    ],
+    "source_box": [
+      645,
+      48,
+      888,
+      329
+    ]
+  },
+  "pelvis": {
+    "file": "pelvis.png",
+    "size": [
+      190,
+      135
+    ],
+    "source_box": [
+      1109,
+      89,
+      1370,
+      322
+    ]
+  },
+  "upper_arm": {
+    "file": "upper_arm.png",
+    "size": [
+      66,
+      166
+    ],
+    "source_box": [
+      241,
+      373,
+      344,
+      646
+    ]
+  },
+  "forearm": {
+    "file": "forearm.png",
+    "size": [
+      49,
+      152
+    ],
+    "source_box": [
+      721,
+      388,
+      805,
+      646
+    ]
+  },
+  "hand": {
+    "file": "hand.png",
+    "size": [
+      46,
+      93
+    ],
+    "source_box": [
+      1193,
+      412,
+      1308,
+      638
+    ]
+  },
+  "thigh": {
+    "file": "thigh.png",
+    "size": [
+      88,
+      227
+    ],
+    "source_box": [
+      208,
+      673,
+      353,
+      1008
+    ]
+  },
+  "shin": {
+    "file": "shin.png",
+    "size": [
+      76,
+      217
+    ],
+    "source_box": [
+      707,
+      677,
+      822,
+      1004
+    ]
+  },
+  "foot": {
+    "file": "foot.png",
+    "size": [
+      120,
+      77
+    ],
+    "source_box": [
+      1137,
+      786,
+      1368,
+      938
+    ]
+  }
+}

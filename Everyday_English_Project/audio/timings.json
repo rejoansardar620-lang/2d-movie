@@ -1,0 +1,218 @@
+[
+  {
+    "start": 0.12,
+    "end": 2.2983,
+    "text": "I wake up in the morning.",
+    "scene": 0
+  },
+  {
+    "start": 3.5534,
+    "end": 5.3941,
+    "text": "I open my eyes.",
+    "scene": 0
+  },
+  {
+    "start": 6.6493,
+    "end": 8.6848,
+    "text": "I turn off my alarm.",
+    "scene": 0
+  },
+  {
+    "start": 10.12,
+    "end": 11.9701,
+    "text": "I sit up in bed.",
+    "scene": 1
+  },
+  {
+    "start": 13.3402,
+    "end": 15.239,
+    "text": "I stretch my arms.",
+    "scene": 1
+  },
+  {
+    "start": 16.6091,
+    "end": 18.5699,
+    "text": "I am ready to get up.",
+    "scene": 1
+  },
+  {
+    "start": 20.12,
+    "end": 22.115,
+    "text": "I move the blanket.",
+    "scene": 2
+  },
+  {
+    "start": 23.3282,
+    "end": 25.7406,
+    "text": "I put my feet on the floor.",
+    "scene": 2
+  },
+  {
+    "start": 26.9538,
+    "end": 28.7268,
+    "text": "I get out of bed.",
+    "scene": 2
+  },
+  {
+    "start": 30.12,
+    "end": 32.1159,
+    "text": "I walk to the window.",
+    "scene": 3
+  },
+  {
+    "start": 33.359,
+    "end": 35.4779,
+    "text": "I open the curtains.",
+    "scene": 3
+  },
+  {
+    "start": 36.721,
+    "end": 38.6969,
+    "text": "I open the window.",
+    "scene": 3
+  },
+  {
+    "start": 40.12,
+    "end": 41.781,
+    "text": "I make my bed.",
+    "scene": 4
+  },
+  {
+    "start": 42.9634,
+    "end": 45.2519,
+    "text": "I pull the blanket straight.",
+    "scene": 4
+  },
+  {
+    "start": 46.4343,
+    "end": 48.7576,
+    "text": "I smooth it with my hands.",
+    "scene": 4
+  },
+  {
+    "start": 50.12,
+    "end": 52.2622,
+    "text": "I walk to the bathroom.",
+    "scene": 5
+  },
+  {
+    "start": 53.43,
+    "end": 55.7379,
+    "text": "I stop beside the sink.",
+    "scene": 5
+  },
+  {
+    "start": 56.9057,
+    "end": 58.7722,
+    "text": "I turn on the tap.",
+    "scene": 5
+  },
+  {
+    "start": 60.12,
+    "end": 62.0191,
+    "text": "I wash my hands.",
+    "scene": 6
+  },
+  {
+    "start": 63.2277,
+    "end": 65.0748,
+    "text": "I wash my face.",
+    "scene": 6
+  },
+  {
+    "start": 66.2834,
+    "end": 68.7314,
+    "text": "The cool water wakes me up.",
+    "scene": 6
+  },
+  {
+    "start": 70.12,
+    "end": 72.3799,
+    "text": "I pick up my toothbrush.",
+    "scene": 7
+  },
+  {
+    "start": 73.5792,
+    "end": 75.3953,
+    "text": "I brush my teeth.",
+    "scene": 7
+  },
+  {
+    "start": 76.5946,
+    "end": 78.7407,
+    "text": "I keep my teeth clean.",
+    "scene": 7
+  },
+  {
+    "start": 80.12,
+    "end": 82.0079,
+    "text": "I turn off the tap.",
+    "scene": 8
+  },
+  {
+    "start": 83.3441,
+    "end": 85.4442,
+    "text": "I take a soft towel.",
+    "scene": 8
+  },
+  {
+    "start": 86.7804,
+    "end": 88.6037,
+    "text": "I dry my face.",
+    "scene": 8
+  },
+  {
+    "start": 90.12,
+    "end": 91.9758,
+    "text": "I look in the mirror.",
+    "scene": 9
+  },
+  {
+    "start": 93.4508,
+    "end": 95.0691,
+    "text": "I comb my hair.",
+    "scene": 9
+  },
+  {
+    "start": 96.5442,
+    "end": 98.4649,
+    "text": "Now my hair is neat.",
+    "scene": 9
+  },
+  {
+    "start": 100.12,
+    "end": 102.1458,
+    "text": "I walk to the kitchen.",
+    "scene": 10
+  },
+  {
+    "start": 103.4792,
+    "end": 105.2768,
+    "text": "I pick up my cup.",
+    "scene": 10
+  },
+  {
+    "start": 106.6102,
+    "end": 108.6067,
+    "text": "I drink some water.",
+    "scene": 10
+  },
+  {
+    "start": 110.12,
+    "end": 112.0099,
+    "text": "I pick up my bag.",
+    "scene": 11
+  },
+  {
+    "start": 113.3469,
+    "end": 115.1299,
+    "text": "I walk outside.",
+    "scene": 11
+  },
+  {
+    "start": 116.4669,
+    "end": 118.603,
+    "text": "I am ready for the day.",
+    "scene": 11
+  }
+]

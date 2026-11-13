@@ -1,0 +1,479 @@
+{
+  "title": "Morning English \u2014 Learn by Doing",
+  "duration": 120,
+  "fps": 24,
+  "voice": "af_heart",
+  "scenes": [
+    {
+      "id": 0,
+      "start": 0,
+      "end": 10,
+      "word": "Wake up",
+      "chapter": "Morning routine",
+      "background": "routine_bedroom",
+      "action": "wake"
+    },
+    {
+      "id": 1,
+      "start": 10,
+      "end": 20,
+      "word": "Sit up and stretch",
+      "chapter": "Morning routine",
+      "background": "routine_bedroom",
+      "action": "stretch"
+    },
+    {
+      "id": 2,
+      "start": 20,
+      "end": 30,
+      "word": "Get out of bed",
+      "chapter": "Morning routine",
+      "background": "routine_bedroom",
+      "action": "stand"
+    },
+    {
+      "id": 3,
+      "start": 30,
+      "end": 40,
+      "word": "Open the window",
+      "chapter": "Morning routine",
+      "background": "routine_bedroom",
+      "action": "window"
+    },
+    {
+      "id": 4,
+      "start": 40,
+      "end": 50,
+      "word": "Make the bed",
+      "chapter": "Morning routine",
+      "background": "routine_bedroom",
+      "action": "make_bed"
+    },
+    {
+      "id": 5,
+      "start": 50,
+      "end": 60,
+      "word": "Go to the bathroom",
+      "chapter": "Morning routine",
+      "background": "bathroom",
+      "action": "bathroom"
+    },
+    {
+      "id": 6,
+      "start": 60,
+      "end": 70,
+      "word": "Wash up",
+      "chapter": "Morning routine",
+      "background": "bathroom",
+      "action": "wash"
+    },
+    {
+      "id": 7,
+      "start": 70,
+      "end": 80,
+      "word": "Brush my teeth",
+      "chapter": "Morning routine",
+      "background": "bathroom",
+      "action": "brush"
+    },
+    {
+      "id": 8,
+      "start": 80,
+      "end": 90,
+      "word": "Dry my face",
+      "chapter": "Morning routine",
+      "background": "bathroom",
+      "action": "dry"
+    },
+    {
+      "id": 9,
+      "start": 90,
+      "end": 100,
+      "word": "Comb my hair",
+      "chapter": "Morning routine",
+      "background": "bathroom",
+      "action": "comb"
+    },
+    {
+      "id": 10,
+      "start": 100,
+      "end": 110,
+      "word": "Drink some water",
+      "chapter": "Morning routine",
+      "background": "kitchen",
+      "action": "drink"
+    },
+    {
+      "id": 11,
+      "start": 110,
+      "end": 120,
+      "word": "Start the day",
+      "chapter": "Morning routine",
+      "background": "garden",
+      "action": "leave"
+    }
+  ],
+  "sentences": [
+    {
+      "scene": 0,
+      "start": 0,
+      "end": 3.4834,
+      "text": "I wake up in the morning.",
+      "action": "wake",
+      "speech_start": 0.12,
+      "speech_end": 2.2983,
+      "speed": 0.65
+    },
+    {
+      "scene": 0,
+      "start": 3.4834,
+      "end": 6.5793,
+      "text": "I open my eyes.",
+      "action": "wake",
+      "speech_start": 3.5534,
+      "speech_end": 5.3941,
+      "speed": 0.65
+    },
+    {
+      "scene": 0,
+      "start": 6.5793,
+      "end": 10,
+      "text": "I turn off my alarm.",
+      "action": "wake",
+      "speech_start": 6.6493,
+      "speech_end": 8.6848,
+      "speed": 0.65
+    },
+    {
+      "scene": 1,
+      "start": 10,
+      "end": 13.2702,
+      "text": "I sit up in bed.",
+      "action": "stretch",
+      "speech_start": 10.12,
+      "speech_end": 11.9701,
+      "speed": 0.65
+    },
+    {
+      "scene": 1,
+      "start": 13.2702,
+      "end": 16.5391,
+      "text": "I stretch my arms.",
+      "action": "stretch",
+      "speech_start": 13.3402,
+      "speech_end": 15.239,
+      "speed": 0.65
+    },
+    {
+      "scene": 1,
+      "start": 16.5391,
+      "end": 20,
+      "text": "I am ready to get up.",
+      "action": "stretch",
+      "speech_start": 16.6091,
+      "speech_end": 18.5699,
+      "speed": 0.65
+    },
+    {
+      "scene": 2,
+      "start": 20,
+      "end": 23.2582,
+      "text": "I move the blanket.",
+      "action": "stand",
+      "speech_start": 20.12,
+      "speech_end": 22.115,
+      "speed": 0.65
+    },
+    {
+      "scene": 2,
+      "start": 23.2582,
+      "end": 26.8838,
+      "text": "I put my feet on the floor.",
+      "action": "stand",
+      "speech_start": 23.3282,
+      "speech_end": 25.7406,
+      "speed": 0.65
+    },
+    {
+      "scene": 2,
+      "start": 26.8838,
+      "end": 30,
+      "text": "I get out of bed.",
+      "action": "stand",
+      "speech_start": 26.9538,
+      "speech_end": 28.7268,
+      "speed": 0.65
+    },
+    {
+      "scene": 3,
+      "start": 30,
+      "end": 33.289,
+      "text": "I walk to the window.",
+      "action": "window",
+      "speech_start": 30.12,
+      "speech_end": 32.1159,
+      "speed": 0.65
+    },
+    {
+      "scene": 3,
+      "start": 33.289,
+      "end": 36.651,
+      "text": "I open the curtains.",
+      "action": "window",
+      "speech_start": 33.359,
+      "speech_end": 35.4779,
+      "speed": 0.65
+    },
+    {
+      "scene": 3,
+      "start": 36.651,
+      "end": 40,
+      "text": "I open the window.",
+      "action": "window",
+      "speech_start": 36.721,
+      "speech_end": 38.6969,
+      "speed": 0.65
+    },
+    {
+      "scene": 4,
+      "start": 40,
+      "end": 42.8934,
+      "text": "I make my bed.",
+      "action": "make_bed",
+      "speech_start": 40.12,
+      "speech_end": 41.781,
+      "speed": 0.65
+    },
+    {
+      "scene": 4,
+      "start": 42.8934,
+      "end": 46.3643,
+      "text": "I pull the blanket straight.",
+      "action": "make_bed",
+      "speech_start": 42.9634,
+      "speech_end": 45.2519,
+      "speed": 0.65
+    },
+    {
+      "scene": 4,
+      "start": 46.3643,
+      "end": 50,
+      "text": "I smooth it with my hands.",
+      "action": "make_bed",
+      "speech_start": 46.4343,
+      "speech_end": 48.7576,
+      "speed": 0.65
+    },
+    {
+      "scene": 5,
+      "start": 50,
+      "end": 53.36,
+      "text": "I walk to the bathroom.",
+      "action": "bathroom",
+      "speech_start": 50.12,
+      "speech_end": 52.2622,
+      "speed": 0.65
+    },
+    {
+      "scene": 5,
+      "start": 53.36,
+      "end": 56.8357,
+      "text": "I stop beside the sink.",
+      "action": "bathroom",
+      "speech_start": 53.43,
+      "speech_end": 55.7379,
+      "speed": 0.65
+    },
+    {
+      "scene": 5,
+      "start": 56.8357,
+      "end": 60,
+      "text": "I turn on the tap.",
+      "action": "bathroom",
+      "speech_start": 56.9057,
+      "speech_end": 58.7722,
+      "speed": 0.65
+    },
+    {
+      "scene": 6,
+      "start": 60,
+      "end": 63.1577,
+      "text": "I wash my hands.",
+      "action": "wash",
+      "speech_start": 60.12,
+      "speech_end": 62.0191,
+      "speed": 0.65
+    },
+    {
+      "scene": 6,
+      "start": 63.1577,
+      "end": 66.2134,
+      "text": "I wash my face.",
+      "action": "wash",
+      "speech_start": 63.2277,
+      "speech_end": 65.0748,
+      "speed": 0.65
+    },
+    {
+      "scene": 6,
+      "start": 66.2134,
+      "end": 70,
+      "text": "The cool water wakes me up.",
+      "action": "wash",
+      "speech_start": 66.2834,
+      "speech_end": 68.7314,
+      "speed": 0.65
+    },
+    {
+      "scene": 7,
+      "start": 70,
+      "end": 73.5092,
+      "text": "I pick up my toothbrush.",
+      "action": "brush",
+      "speech_start": 70.12,
+      "speech_end": 72.3799,
+      "speed": 0.65
+    },
+    {
+      "scene": 7,
+      "start": 73.5092,
+      "end": 76.5246,
+      "text": "I brush my teeth.",
+      "action": "brush",
+      "speech_start": 73.5792,
+      "speech_end": 75.3953,
+      "speed": 0.65
+    },
+    {
+      "scene": 7,
+      "start": 76.5246,
+      "end": 80,
+      "text": "I keep my teeth clean.",
+      "action": "brush",
+      "speech_start": 76.5946,
+      "speech_end": 78.7407,
+      "speed": 0.65
+    },
+    {
+      "scene": 8,
+      "start": 80,
+      "end": 83.2741,
+      "text": "I turn off the tap.",
+      "action": "dry",
+      "speech_start": 80.12,
+      "speech_end": 82.0079,
+      "speed": 0.65
+    },
+    {
+      "scene": 8,
+      "start": 83.2741,
+      "end": 86.7104,
+      "text": "I take a soft towel.",
+      "action": "dry",
+      "speech_start": 83.3441,
+      "speech_end": 85.4442,
+      "speed": 0.65
+    },
+    {
+      "scene": 8,
+      "start": 86.7104,
+      "end": 90,
+      "text": "I dry my face.",
+      "action": "dry",
+      "speech_start": 86.7804,
+      "speech_end": 88.6037,
+      "speed": 0.65
+    },
+    {
+      "scene": 9,
+      "start": 90,
+      "end": 93.3808,
+      "text": "I look in the mirror.",
+      "action": "comb",
+      "speech_start": 90.12,
+      "speech_end": 91.9758,
+      "speed": 0.65
+    },
+    {
+      "scene": 9,
+      "start": 93.3808,
+      "end": 96.4742,
+      "text": "I comb my hair.",
+      "action": "comb",
+      "speech_start": 93.4508,
+      "speech_end": 95.0691,
+      "speed": 0.65
+    },
+    {
+      "scene": 9,
+      "start": 96.4742,
+      "end": 100,
+      "text": "Now my hair is neat.",
+      "action": "comb",
+      "speech_start": 96.5442,
+      "speech_end": 98.4649,
+      "speed": 0.65
+    },
+    {
+      "scene": 10,
+      "start": 100,
+      "end": 103.4092,
+      "text": "I walk to the kitchen.",
+      "action": "drink",
+      "speech_start": 100.12,
+      "speech_end": 102.1458,
+      "speed": 0.65
+    },
+    {
+      "scene": 10,
+      "start": 103.4092,
+      "end": 106.5402,
+      "text": "I pick up my cup.",
+      "action": "drink",
+      "speech_start": 103.4792,
+      "speech_end": 105.2768,
+      "speed": 0.65
+    },
+    {
+      "scene": 10,
+      "start": 106.5402,
+      "end": 110,
+      "text": "I drink some water.",
+      "action": "drink",
+      "speech_start": 106.6102,
+      "speech_end": 108.6067,
+      "speed": 0.65
+    },
+    {
+      "scene": 11,
+      "start": 110,
+      "end": 113.2769,
+      "text": "I pick up my bag.",
+      "action": "leave",
+      "speech_start": 110.12,
+      "speech_end": 112.0099,
+      "speed": 0.65
+    },
+    {
+      "scene": 11,
+      "start": 113.2769,
+      "end": 116.3969,
+      "text": "I walk outside.",
+      "action": "leave",
+      "speech_start": 113.3469,
+      "speech_end": 115.1299,
+      "speed": 0.65
+    },
+    {
+      "scene": 11,
+      "start": 116.3969,
+      "end": 120,
+      "text": "I am ready for the day.",
+      "action": "leave",
+      "speech_start": 116.4669,
+      "speech_end": 118.603,
+      "speed": 0.65
+    }
+  ],
+  "reference_footage_used": false
+}

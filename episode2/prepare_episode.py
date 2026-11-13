@@ -3,17 +3,16 @@
 Usage:
     python episode2/prepare_episode.py
 
-Run from a checkout containing 'Everyday_English_2_Minute_Project (1).zip'.
+Run from a checkout containing the extracted 'Everyday_English_Project' folder.
 This creates build/episode02/Everyday_English_Project/.
 """
 from pathlib import Path
 import json
 import re
 import shutil
-import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-ARCHIVE = ROOT / "Everyday_English_2_Minute_Project (1).zip"
+SOURCE = ROOT / "Everyday_English_Project"
 DEST = ROOT / "build" / "episode02"
 PROJECT = DEST / "Everyday_English_Project"
 
@@ -150,17 +149,12 @@ def patch_renderer(path: Path) -> None:
 
 
 def main() -> None:
-    if not ARCHIVE.exists():
-        raise FileNotFoundError(ARCHIVE)
+    if not SOURCE.is_dir():
+        raise FileNotFoundError(SOURCE)
     if DEST.exists():
         shutil.rmtree(DEST)
     DEST.mkdir(parents=True)
-    with zipfile.ZipFile(ARCHIVE) as z:
-        for entry in z.infolist():
-            target = (DEST / entry.filename).resolve()
-            if not target.is_relative_to(DEST.resolve()):
-                raise ValueError("Archive has unsafe paths")
-        z.extractall(DEST)
+    shutil.copytree(SOURCE, PROJECT, ignore=shutil.ignore_patterns('__pycache__', 'segments'))
     if not PROJECT.is_dir():
         raise RuntimeError("Expected original project folder missing")
     spec = {

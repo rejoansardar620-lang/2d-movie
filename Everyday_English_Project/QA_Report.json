@@ -1,0 +1,31 @@
+{
+  "duration_target_seconds": 120,
+  "scenes": 12,
+  "spoken_sentences": 36,
+  "voice_duration_seconds": 120.0,
+  "audio_sample_rate": 48000,
+  "audio_channels": 2,
+  "peak_dbfs": -5.01028226354065,
+  "clipped_samples": 0,
+  "rhubarb_mouth_cues": 440,
+  "reference_footage_used": false,
+  "tools": [
+    "Python/Pillow",
+    "Kokoro-82M/PyTorch",
+    "Rhubarb Lip Sync",
+    "FFmpeg"
+  ],
+  "animation": "2D articulated cutout, joint animation, props and foreground layers",
+  "checks": [
+    "36 nonempty spoken segments",
+    "sentence timing ordered without overlap",
+    "all narration inside 120 seconds",
+    "12 action scenes visually reviewed",
+    "all nine rig layers reproduce exactly from the supplied sheet",
+    "all Python entry points compile",
+    "raised-arm shoulder seams reviewed",
+    "held props appear in the animated mirror reflection"
+  ],
+  "audio_integrated_lufs": -18.12,
+  "audio_true_peak_dbfs": -5.01
+}

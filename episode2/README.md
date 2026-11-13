@@ -4,7 +4,7 @@ This is a continuation of the original **Morning English — Learn by Doing** pr
 
 ## Preserve the original style
 
-- Character identity: the exact body-part PNG layers in `action_rig/`, taken from the original ZIP.
+- Character identity: the exact body-part PNG layers in `action_rig/`, from `Everyday_English_Project/`.
 - Backgrounds: the original `routine_bedroom.png`, `bathroom.png`, `kitchen.png`, and `garden.png`.
 - Animation: the original `action_render.py` articulated Pillow/NumPy renderer, IK arms and legs, blink/mouth cues, hand targets, and camera framing.
 - Visual appearance: original painted artwork, caption strip and warm palette; new props are drawn in the same Pillow pipeline.
@@ -36,7 +36,7 @@ Each scene contains three first-person English sentences, timed and spoken using
 
 Open [GitHub Actions](https://github.com/rejoansardar620-lang/2d-movie/actions/workflows/render-episode2.yml), select **Render Episode 02 — same original 2D style**, click **Run workflow**, choose the `work/next-two-minute-episode` branch, and run it.
 
-The workflow installs Python, FFmpeg, PyTorch, Kokoro and Rhubarb, extracts the original ZIP, prepares Episode 02, regenerates voice/lip-sync and renders the video.
+The workflow installs Python, FFmpeg, PyTorch, Kokoro and Rhubarb, copies the extracted original project, prepares Episode 02, regenerates voice/lip-sync and renders the video.
 
 If successful, the run's **Artifacts** section contains `Episode-02-Finished-Video-and-Project` with:
 
@@ -57,7 +57,7 @@ Requirements: Python 3.11, FFmpeg, 16GB+ RAM recommended and sufficient disk spa
 6. Run `python make_voice.py --model-dir models --rhubarb /absolute/path/to/rhubarb --workers 1`.
 7. Run `python action_render.py --preview`, then `python render_all.py --workers 1`.
 
-Do **not** run `build_routine.py` from the original ZIP after preparing Episode 02: that would overwrite the new lesson timeline.
+Do **not** run `build_routine.py` from the original project folder after preparing Episode 02: that would overwrite the new lesson timeline.
 
 ## Quality review
 
@@ -65,4 +65,4 @@ Before releasing, watch the full MP4 and check for hand-prop alignment, self-ove
 
 ## Source
 
-The only Episode 02 modifications are `episode2/prepare_episode.py` and the automation workflow. The original ZIP and preview are left unchanged, so Episode 01 remains reproducible.
+The only Episode 02 modifications are `episode2/prepare_episode.py` and the automation workflow. The original project is available in `Everyday_English_Project/` and the original preview is preserved, so Episode 01 remains reproducible.

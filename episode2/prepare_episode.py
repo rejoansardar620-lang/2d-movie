@@ -134,11 +134,11 @@ CAMERAS = [
 def patch_renderer(path: Path) -> None:
     source = path.read_text()
     action_anchor = " elif a=='drink':"
-    prop_anchor = " return im\ndef action_stage(si,t):"
+    prop_anchor = " if name=='brush':im=ImageOps.mirror(im)\n return im\ndef action_stage(si,t):"
     if source.count(action_anchor) != 1 or source.count(prop_anchor) != 1:
         raise RuntimeError("The original renderer changed; patch locations not unique")
     source = source.replace(action_anchor, ACTION_EXTENSION + action_anchor, 1)
-    source = source.replace(prop_anchor, PROP_EXTENSION + " return im\ndef action_stage(si,t):", 1)
+    source = source.replace(prop_anchor, PROP_EXTENSION + prop_anchor, 1)
     # Original camera implementation reads CAMERAS[scene_index].
     source, count = re.subn(r"^CAMERAS=.*$", "CAMERAS="+repr(CAMERAS), source, count=1, flags=re.M)
     if count != 1:

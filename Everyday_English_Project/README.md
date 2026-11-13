@@ -16,7 +16,7 @@ python action_render.py --preview
 python render_all.py --workers 2
 ```
 
-Use one worker on a small laptop. The final file is `output/Everyday_English_2_Minute_Preview.mp4`, 1920 × 1080, 24 fps, exactly 120 seconds, H.264 video and AAC stereo audio. The supplied narration is lossless FLAC. The subtitle track and `captions.srt` accompany the burned-in sentence captions. Delete `output/segments` before rendering changed animation or timing.
+Use one worker on a small laptop. The final file is `output/Everyday_English_2_Minute_Preview.mp4`, 1920 × 1080, 24 fps, exactly 120 seconds, H.264 video and AAC stereo audio. The supplied narration is lossless FLAC. The subtitle track and `captions.srt` accompany the burned-in sentence captions. Rendered segments are checked against the renderer, artwork, lesson, and mouth-cue content; changed inputs rebuild automatically. `--join-only` rejects stale segments.
 
 ## Edit the routine
 
@@ -49,3 +49,19 @@ The speech generator uses local PyTorch inference. It does not load ONNX Runtime
 ## Tools and assets
 
 Python/Pillow animate and composite; Kokoro/PyTorch generate speech; Rhubarb supplies approximate phoneme mouth cues; FFmpeg encodes. Blender is not used. The character and backgrounds were generated for this project, then separated into animation layers. Small props and effects are drawn in code. Kokoro model: Apache 2.0, https://huggingface.co/hexgrad/Kokoro-82M . DejaVu font license is included. No external vocabulary icons are used in this version.
+
+## Animation and sound improvements
+
+The character uses painted leg layers, fixed elbow bend directions, a reach-clamped two-bone rig, smooth acceleration, subtle breathing, and a walking phase driven by distance. Brushing has an explicit open jaw with teeth; the toothbrush handle and hand are derived from the bristle contact point. Combing returns smoothly between strokes, and the bag attaches to the solved hand position.
+
+`render_all.py` automatically runs `master_audio.py`: gentle speech EQ, measured two-pass normalization to −16 LUFS with a −1.5 dBTP ceiling, and 256 kb/s AAC. The source recording, timing, and pitch remain unchanged. Measured mastering reports are saved under `output/audio/`.
+
+To regenerate speech, `make_voice.py` now defaults to `--speed 0.85` (use `--speed 0.65` for the previous slower delivery). It saves 24-bit source audio; final mastering runs at render time. Regeneration still requires the optional Kokoro and Rhubarb dependencies above. The included improved preview uses the existing narration with the new mastering; a newly synthesized performance has not been validated here.
+
+Run the geometry, brushing-contact, and cache regression checks with:
+
+```sh
+python -m unittest discover -s . -p 'test_*.py' -v
+```
+
+The artwork remains a single-view cutout rig. Full turns, detailed fingers, and more expressive acting would require additional painted poses or a deformable mesh rig.

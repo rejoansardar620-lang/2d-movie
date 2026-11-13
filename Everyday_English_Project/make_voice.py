@@ -22,13 +22,13 @@ def initialize(model_dir,rhubarb):
  VOICE=torch.load(path/'af_heart.pt',map_location='cpu',weights_only=True);RHUBARB=rhubarb
 
 def generate_scene(job):
- scene,lines,voice_id=job;t0=time.monotonic();out=ROOT/'audio';index=scene['id']
- tag=hashlib.sha256(json.dumps([scene['word'],[x['text'] for x in lines],voice_id,'torch2-picture-lesson']).encode()).hexdigest()
+ scene,lines,voice_id,preferred_speed=job;t0=time.monotonic();out=ROOT/'audio';index=scene['id']
+ tag=hashlib.sha256(json.dumps([scene['word'],[x['text'] for x in lines],voice_id,preferred_speed,'torch3-natural-lesson']).encode()).hexdigest()
  checkpoint=out/'scenes'/f'{index:02}.json';wav=checkpoint.with_suffix('.wav')
  if checkpoint.exists() and wav.exists():
   r=json.loads(checkpoint.read_text())
   if r.get('tag')==tag:return r
- speed=.65
+ speed=preferred_speed
  for attempt in range(4):
   clips=[]
   for line in lines:
@@ -41,7 +41,8 @@ def generate_scene(job):
     nz=np.flatnonzero(np.abs(a)>.003)
     if len(nz):a=a[max(0,nz[0]-int(.055*sr)):min(len(a),nz[-1]+int(.10*sr))]
     a=np.asarray(a,np.float32);fade=min(int(.006*sr),len(a)//3)
-    a[:fade]*=np.linspace(0,1,fade);a[-fade:]*=np.linspace(1,0,fade);sf.write(cached,a,sr)
+    if fade:a[:fade]*=np.linspace(0,1,fade);a[-fade:]*=np.linspace(1,0,fade)
+    sf.write(cached,a,sr,subtype='PCM_24')
    assert sr==SR;clips.append(a)
   total=sum(len(a)/SR for a in clips)
   if total<=8.95:break
@@ -54,7 +55,7 @@ def generate_scene(job):
   line['end']=round(scene['start']+end+gap-.07,4) if j<2 else scene['end']
   line['speech_start']=round(scene['start']+cursor,4);line['speech_end']=round(scene['start']+end,4);line['speed']=round(speed,4)
   timings.append({'start':line['speech_start'],'end':line['speech_end'],'text':line['text'],'scene':index});cursor=end+gap
- sf.write(wav,mix,SR)
+ sf.write(wav,mix,SR,subtype='PCM_24')
  dialogue=checkpoint.with_suffix('.txt');dialogue.write_text('\n'.join(l['text'] for l in lines));cuefile=checkpoint.with_suffix('.cues.json')
  subprocess.run([RHUBARB,'-r','pocketSphinx','-f','json','--threads','1','-q','-d',str(dialogue),'-o',str(cuefile),str(wav)],check=True)
  cues=json.loads(cuefile.read_text())['mouthCues']
@@ -63,10 +64,11 @@ def generate_scene(job):
  checkpoint.write_text(json.dumps(result,indent=2));return result
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--rhubarb',type=Path,required=True);p.add_argument('--workers',type=int,default=3);args=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--rhubarb',type=Path,required=True);p.add_argument('--workers',type=int,default=3);p.add_argument('--speed',type=float,default=.85,help='Preferred Kokoro speed (default: 0.85); increased only if a scene would overflow');args=p.parse_args()
+ if not .5<=args.speed<=1.3:p.error('--speed must be between 0.5 and 1.3')
  spec=json.loads((ROOT/'lesson.json').read_text());out=ROOT/'audio'
  for folder in ['scenes','lines']:(out/folder).mkdir(exist_ok=True,parents=True)
- jobs=[(s,[x.copy() for x in spec['sentences'] if x['scene']==s['id']],spec['voice']) for s in spec['scenes']];results={}
+ jobs=[(s,[x.copy() for x in spec['sentences'] if x['scene']==s['id']],spec['voice'],args.speed) for s in spec['scenes']];results={}
  with ProcessPoolExecutor(max_workers=args.workers,mp_context=get_context('spawn'),initializer=initialize,initargs=(str(args.model_dir.resolve()),str(args.rhubarb.resolve()))) as pool:
   for fut in as_completed([pool.submit(generate_scene,j) for j in jobs]):
    r=fut.result();results[r['scene']]=r;print(f"Voice + lip sync {len(results):02}/{len(jobs)}: {r['word']} ({r['elapsed']:.1f}s)",flush=True)
@@ -74,9 +76,10 @@ def main():
  for i in range(len(spec['scenes'])):
   a,sr=sf.read(out/'scenes'/f'{i:02}.wav',dtype='float32');assert sr==SR and len(a)==10*SR
   mix[i*10*SR:(i+1)*10*SR]=a;lines.extend(results[i]['lines']);timings.extend(results[i]['timings']);cues.extend(results[i]['cues'])
- spec['sentences']=lines;(ROOT/'lesson.json').write_text(json.dumps(spec,indent=2));sf.write(out/'narration_raw.wav',mix,SR)
+ spec['sentences']=lines;(ROOT/'lesson.json').write_text(json.dumps(spec,indent=2));sf.write(out/'narration_raw.wav',mix,SR,subtype='PCM_24')
  (out/'timings.json').write_text(json.dumps(timings,indent=2));(out/'dialogue.txt').write_text('\n'.join(x['text'] for x in lines));(out/'mouth_cues.json').write_text(json.dumps({'mouthCues':cues},indent=2))
  (ROOT/'captions.srt').write_text('\n\n'.join(f'{i+1}\n{stamp(r["start"])} --> {stamp(r["end"])}\n{r["text"]}' for i,r in enumerate(timings))+'\n')
- subprocess.run(['ffmpeg','-hide_banner','-loglevel','warning','-y','-i',str(out/'narration_raw.wav'),'-af','highpass=f=65,loudnorm=I=-18:TP=-2:LRA=7','-ar','48000','-ac','2',str(out/'narration.wav')],check=True)
+ # Keep this as a lossless source; render_all applies measured mastering once.
+ subprocess.run(['ffmpeg','-hide_banner','-loglevel','warning','-y','-i',str(out/'narration_raw.wav'),'-ar','48000','-ac','2','-c:a','pcm_s24le',str(out/'narration.wav')],check=True)
  print('Narration, lip sync and captions complete.',flush=True)
 if __name__=='__main__':main()

@@ -6,3 +6,5 @@ __pycache__/
 /Everyday_English_Project/output/preview_*.jpg
 /Everyday_English_Project/output/pose.jpg
 /Everyday_English_Project/output/*.mp4
+
+/Everyday_English_Project/output/audio/

@@ -27,5 +27,24 @@
     "held props appear in the animated mirror reflection"
   ],
   "audio_integrated_lufs": -18.12,
-  "audio_true_peak_dbfs": -5.01
+  "audio_true_peak_dbfs": -5.01,
+  "updated_preview": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "frames": 2880,
+    "duration_seconds": 120,
+    "video": "h264",
+    "audio": "aac",
+    "subtitles": "mov_text",
+    "audio_integrated_lufs": -16.02,
+    "audio_true_peak_dbtp": -1.58,
+    "regression_tests_passed": 10,
+    "full_video_decode": "passed",
+    "source_content_cache": "all 12 scenes current",
+    "episode2_still_previews": "passed; full voice and video regeneration not run",
+    "voice_performance": "existing narration remastered; new synthesis not run",
+    "visual_review": "12 scene contact sheet and selected brushing, stretching, combing, walking poses",
+    "limitations": "single-view cutout rig; no full-body turnarounds or articulated fingers"
+  }
 }

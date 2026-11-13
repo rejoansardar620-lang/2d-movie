@@ -8,10 +8,10 @@ This is a continuation of the original **Morning English — Learn by Doing** pr
 - Backgrounds: the original `routine_bedroom.png`, `bathroom.png`, `kitchen.png`, and `garden.png`.
 - Animation: the original `action_render.py` articulated Pillow/NumPy renderer, IK arms and legs, blink/mouth cues, hand targets, and camera framing.
 - Visual appearance: original painted artwork, caption strip and warm palette; new props are drawn in the same Pillow pipeline.
-- Voice: original `Kokoro-82M` (PyTorch) with `af_heart` at an initial speed of `0.65`, regenerated for **all 36 Episode 02 lines**.
+- Voice: original `Kokoro-82M` (PyTorch) with `af_heart` at an preferred speed of `0.85`, regenerated for **all 36 Episode 02 lines**.
 - Mouth animation: Rhubarb 1.14.0 aligned to the regenerated voice.
 - Encoding: 1920×1080, 24 FPS, H.264 video + AAC audio, original `render_all.py`.
-- Audio mastering: `highpass=f=65,loudnorm=I=-18:TP=-2:LRA=7` from original `make_voice.py`.
+- Audio mastering: gentle speech EQ and measured two-pass −16 LUFS / −1.5 dBTP mastering from `master_audio.py` at render time.
 
 ## Storyboard
 

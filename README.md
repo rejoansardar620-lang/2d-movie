@@ -12,3 +12,7 @@ python render_all.py --workers 2
 ```
 
 See [Episode 02](episode2/README.md) for the continuation workflow. The original preview MP4 remains at the repository root.
+
+## Improved character and audio
+
+The root preview MP4 demonstrates the updated open-mouth brushing, stable arm joints, painted leg animation, smoother gestures, attached bag, and mastered narration. See the [animation and sound notes](Everyday_English_Project/README.md#animation-and-sound-improvements) for the changes, validation commands, and remaining rig limitations.

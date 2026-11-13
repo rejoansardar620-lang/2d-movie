@@ -1,0 +1,89 @@
+name: Render Episode 02 — same original 2D style
+on:
+  push:
+    branches: ["work/next-two-minute-episode"]
+    paths: ["episode2/**", ".github/workflows/render-episode2.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install FFmpeg and phonemizer prerequisites
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg espeak-ng libespeak-ng1 unzip
+      - name: Rebuild project with original rig, assets and new scenes
+        run: python episode2/prepare_episode.py
+      - name: Install rendering dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy<2.2" "pillow>=10" soundfile scipy
+      - name: Validate 12 new actions and original artwork using still previews
+        run: |
+          cd build/episode02/Everyday_English_Project
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('lesson.json')
+          s=json.loads(p.read_text())
+          print('Scenes:', [(x['id'],x['action'],x['background']) for x in s['scenes']])
+          assert len(s['scenes'])==12 and len(s['sentences'])==36
+          PY
+          # The renderer imports mouth cues; generate empty cues until narration is generated.
+          mkdir -p audio
+          printf '{"mouthCues":[]}' > audio/mouth_cues.json
+          python action_render.py --preview
+      - name: Install original Kokoro PyTorch speech pipeline
+        run: |
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install "kokoro==0.9.4" "transformers<5" soundfile espeakng-loader phonemizer "huggingface_hub>=0.25,<1"
+          python -m pip install "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl"
+      - name: Download same Kokoro voice and Rhubarb lip-sync
+        run: |
+          cd build/episode02/Everyday_English_Project
+          mkdir -p models tools
+          python - <<'PY'
+          from huggingface_hub import hf_hub_download
+          from pathlib import Path
+          root=Path('models')
+          for name in ['config.json','kokoro-v1_0.pth','voices/af_heart.pt']:
+              x=hf_hub_download(repo_id='hexgrad/Kokoro-82M',filename=name)
+              dest=root/('af_heart.pt' if '/' in name else name)
+              dest.write_bytes(Path(x).read_bytes())
+              print('Model file:',dest, dest.stat().st_size)
+          PY
+          curl -fsSL --retry 3 -o /tmp/rhubarb.zip https://github.com/DanielSWolf/rhubarb-lip-sync/releases/download/v1.14.0/Rhubarb-Lip-Sync-1.14.0-Linux.zip
+          unzip -q /tmp/rhubarb.zip -d tools
+          find tools -type f -name rhubarb -exec chmod +x {} \;
+      - name: Generate original-quality female narration, timestamps and lip-sync
+        run: |
+          cd build/episode02/Everyday_English_Project
+          RHUBARB=$(find tools -type f -name rhubarb | head -1)
+          test -n "$RHUBARB"
+          python make_voice.py --model-dir models --rhubarb "$PWD/$RHUBARB" --workers 2
+      - name: Render 2 minutes at 1920x1080, 24 FPS
+        run: |
+          cd build/episode02/Everyday_English_Project
+          rm -rf output/segments
+          python render_all.py --workers 2
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=width,height,r_frame_rate,codec_name -of json output/Everyday_English_2_Minute_Preview.mp4
+      - name: Bundle project, soundtrack, caption files and video
+        run: |
+          cd build/episode02
+          rm -rf Everyday_English_Project/models Everyday_English_Project/tools Everyday_English_Project/output/segments
+          zip -q -r "Episode_02_Complete_Project.zip" Everyday_English_Project -x '*/__pycache__/*'
+          mv Everyday_English_Project/output/Everyday_English_2_Minute_Preview.mp4 "Episode_02_Breakfast_and_Garden_120s.mp4"
+      - name: Upload finished video and editable source project
+        uses: actions/upload-artifact@v4
+        with:
+          name: Episode-02-Finished-Video-and-Project
+          path: |
+            build/episode02/Episode_02_Breakfast_and_Garden_120s.mp4
+            build/episode02/Episode_02_Complete_Project.zip
+          retention-days: 30

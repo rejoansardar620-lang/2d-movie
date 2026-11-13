@@ -8,3 +8,11 @@ __pycache__/
 /Everyday_English_Project/output/*.mp4
 
 /Everyday_English_Project/output/audio/
+
+# Godot editor-generated import metadata/cache; assets are committed separately.
+.godot/
+*.import
+
+# Local preview/debug artifacts from the cinematic director.
+/episode3/output/debug_*.png
+/godot_movie/godot_test.avi

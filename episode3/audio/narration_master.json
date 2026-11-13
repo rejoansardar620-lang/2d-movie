@@ -1,0 +1,18 @@
+{
+  "source_and_settings_sha256": "ecff1bb3eacd3e37542a60c6313483dc34b31aa9a01425bbf63f987082e55547",
+  "output_sha256": "fb280e593fac6546d8bace685192ce8748a531a6ab10b3906f23291d8fc51cdb",
+  "source": "narration.wav",
+  "filters": "highpass=f=65,equalizer=f=240:t=q:w=0.8:g=-1.2,equalizer=f=2800:t=q:w=0.8:g=1.0",
+  "target_lufs": -16,
+  "true_peak_ceiling_dbtp": -1.5,
+  "before": {
+    "input_i": "-19.60",
+    "input_tp": "-1.31",
+    "input_lra": "5.50"
+  },
+  "after": {
+    "input_i": "-16.31",
+    "input_tp": "-4.50",
+    "input_lra": "3.70"
+  }
+}

@@ -1,5 +1,9 @@
 # Episode 03 — Ten Funny Flowers (2 minutes)
 
+**NEW REBUILD:** The anatomically corrected premium edition is described in
+[`PREMIUM_RELEASE.md`](PREMIUM_RELEASE.md), including exact rerender commands,
+image-source provenance, full-body continuity checks and QA notes.
+
 **Latest cinematic movie cut:** [`output/Ten_Funny_Flowers_Cinematic_120s.mp4`](output/Ten_Funny_Flowers_Cinematic_120s.mp4)
 
 **Legacy classroom/card cut:** [`output/Ten_Funny_Flowers_120s.mp4`](output/Ten_Funny_Flowers_120s.mp4)

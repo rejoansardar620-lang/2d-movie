@@ -21,6 +21,12 @@ The [6–14 second hand review clip](Hand_Review_6-14s.mp4) isolates the alarm r
 
 ## Episode 03: Four-actor cinematic family conversation
 
+**Current film revision:** [Premium 120-second storybook cut](episode3/PREMIUM_RELEASE.md).
+It corrects the original cutout father/son head-body seams by using coherent,
+full-body actor keyframes and swaps the geometric flowers for detailed botanical
+illustrations. The lotus appears in a dedicated pond scene. Run it entirely
+offline using the saved narration, generated art atlases and Python renderer.
+
 The improved [two-minute movie cut](episode3/README.md) has Rahul, Priya,
 Aarav and Anaya teach ten flower names in a funny conversation while moving
 through a **drawing room → kitchen → balcony → garden**. It replaces the

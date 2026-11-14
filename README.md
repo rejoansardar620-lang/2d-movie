@@ -19,6 +19,21 @@ The root preview MP4 demonstrates the updated open-mouth brushing, stable arm jo
 
 The [6–14 second hand review clip](Hand_Review_6-14s.mp4) isolates the alarm reach and sit-up/stretch transition, including the palm-facing poses and matching arm colours.
 
+## Current review: reference-style four-character animation (10 seconds)
+
+**Start here:** [`episode3/ten_second_proof/README.md`](episode3/ten_second_proof/README.md)
+documents the newer **10-second-only articulated family pilot**. Unlike the
+previous body-mesh experiment, it reuses Episode 01's actual two-bone IK
+geometry and painterly nine-part character construction for Rahul, Priya,
+Aarav and Anaya. It includes per-speaker lip shapes, moving eyes, independent
+blinks, stepping feet, arm gestures, and the original four family voices.
+
+The source is [`episode3/ten_second_proof/rigged_render.py`](episode3/ten_second_proof/rigged_render.py),
+with **36 ready-to-use painted body-part sprites** in `matched_rig/roles/`.
+The full editable-source ZIP and 10-second MP4 are linked from draft PR #2.
+Please review this short clip before asking for the next segment. The older
+120-second experiments below are **not** the approved animation style.
+
 ## Episode 03: Four-actor cinematic family conversation
 
 **Current film revision:** [Premium 120-second storybook cut](episode3/PREMIUM_RELEASE.md).

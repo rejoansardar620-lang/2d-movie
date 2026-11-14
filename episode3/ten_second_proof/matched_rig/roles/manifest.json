@@ -1,0 +1,122 @@
+{
+  "dad": {
+    "name": "Rahul",
+    "layers": [
+      "head",
+      "torso",
+      "pelvis",
+      "upper_arm",
+      "forearm",
+      "hand",
+      "thigh",
+      "shin",
+      "foot"
+    ],
+    "head_size": [
+      200,
+      274
+    ],
+    "pants_color": [
+      76,
+      110,
+      148
+    ],
+    "body_pivot": [
+      100,
+      225
+    ],
+    "head_pivot": [
+      112,
+      212
+    ]
+  },
+  "mom": {
+    "name": "Priya",
+    "layers": [
+      "head",
+      "torso",
+      "pelvis",
+      "upper_arm",
+      "forearm",
+      "hand",
+      "thigh",
+      "shin",
+      "foot"
+    ],
+    "head_size": [
+      200,
+      274
+    ],
+    "pants_color": null,
+    "body_pivot": [
+      100,
+      225
+    ],
+    "head_pivot": [
+      112,
+      212
+    ]
+  },
+  "boy": {
+    "name": "Aarav",
+    "layers": [
+      "head",
+      "torso",
+      "pelvis",
+      "upper_arm",
+      "forearm",
+      "hand",
+      "thigh",
+      "shin",
+      "foot"
+    ],
+    "head_size": [
+      200,
+      274
+    ],
+    "pants_color": [
+      70,
+      105,
+      150
+    ],
+    "body_pivot": [
+      100,
+      225
+    ],
+    "head_pivot": [
+      112,
+      212
+    ]
+  },
+  "girl": {
+    "name": "Anaya",
+    "layers": [
+      "head",
+      "torso",
+      "pelvis",
+      "upper_arm",
+      "forearm",
+      "hand",
+      "thigh",
+      "shin",
+      "foot"
+    ],
+    "head_size": [
+      200,
+      274
+    ],
+    "pants_color": [
+      151,
+      110,
+      178
+    ],
+    "body_pivot": [
+      100,
+      225
+    ],
+    "head_pivot": [
+      112,
+      212
+    ]
+  }
+}

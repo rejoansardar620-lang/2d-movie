@@ -1,0 +1,11 @@
+# Downloaded voice model weights (61 MB) are re-fetchable from their provider.
+models/
+# Render/build scratch data. The original MP3s, final WAV, final MP4, preview,
+# subtitle file and scene timing metadata are intentionally tracked.
+audio/lines/
+audio/raw/*.wav
+audio/tempo_in.wav
+audio/tempo_out.wav
+output/debug_*.png
+output/narration_master.flac
+output/narration_master.json

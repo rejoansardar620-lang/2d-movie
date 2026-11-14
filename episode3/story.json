@@ -1,0 +1,26 @@
+{
+  "title": "Ten Funny Flowers — Family Garden Adventure",
+  "duration": 120,
+  "fps": 24,
+  "resolution": [1920, 1080],
+  "characters": {
+    "dad": {"name": "Rahul", "role": "father", "voice": "Roger", "color": "#6ba4bb"},
+    "mom": {"name": "Priya", "role": "mother", "voice": "Sarah", "color": "#d39e84"},
+    "boy": {"name": "Aarav", "role": "son", "voice": "Liam", "color": "#74b6a3"},
+    "girl": {"name": "Anaya", "role": "daughter", "voice": "Jessica", "color": "#ed9eac"}
+  },
+  "scenes": [
+    {"topic":"The garden challenge","flower":null,"lines":[["dad","Welcome to our garden! Let's learn ten flowers."],["mom","And please, nobody eat them."],["boy","Even if they look like snacks?"]]},
+    {"topic":"Rose","flower":"rose","lines":[["dad","First up, a rose. Say rose!"],["girl","Pretty, but does it bite?"],["mom","Those are thorns! Look, don't grab."]]},
+    {"topic":"Sunflower","flower":"sunflower","lines":[["mom","Sunflower! A giant yellow face."],["boy","It's taller than Dad!"],["dad","I am still growing, thank you!"]]},
+    {"topic":"Tulip","flower":"tulip","lines":[["dad","See the tulip? It looks like a cup."],["girl","A cup for fairies!"],["mom","No fairy tea today, sweetie."]]},
+    {"topic":"Daisy","flower":"daisy","lines":[["mom","This is a daisy. White petals, yellow middle."],["boy","Daisy, will you play with me?"],["dad","She says maybe tomorrow!"]]},
+    {"topic":"Lily","flower":"lily","lines":[["dad","Meet the lily, with big smooth petals."],["girl","Lily is my friend's name!"],["mom","Then give her a flower high-five."]]},
+    {"topic":"Marigold","flower":"marigold","lines":[["mom","Here's a marigold, bright orange and fluffy."],["boy","Is it made of gold?"],["dad","I wish! We'd be rich!"]]},
+    {"topic":"Lotus","flower":"lotus","lines":[["dad","A lotus grows in water, on a pond."],["girl","Does it need swimming lessons?"],["mom","It has a floating leaf already!"]]},
+    {"topic":"Hibiscus","flower":"hibiscus","lines":[["mom","Look closely, this red flower is hibiscus."],["boy","Hi, biscuit! Are you yummy?"],["dad","Hibiscus. No biting flowers!"]]},
+    {"topic":"Orchid","flower":"orchid","lines":[["dad","That purple beauty is an orchid."],["girl","Wow, fancy like Mom!"],["mom","Finally, someone notices my style!"]]},
+    {"topic":"Jasmine","flower":"jasmine","lines":[["mom","Smell this tiny white jasmine flower."],["boy","Mmm! Better than Dad's old socks."],["dad","Hey! My socks are famous!"]]},
+    {"topic":"Ten-flower recap","flower":null,"lines":[["dad","Quick quiz! Rose, sunflower, tulip, daisy, lily!"],["mom","Marigold, lotus, hibiscus, orchid, jasmine!"],["girl","We learned ten flowers! Now snacks, please!"]]}
+  ]
+}

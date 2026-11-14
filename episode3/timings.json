@@ -1,0 +1,254 @@
+[
+  {
+    "scene": 0,
+    "speaker": "dad",
+    "text": "Welcome to our garden! Let's learn ten flowers.",
+    "start": 0.18,
+    "end": 3.33
+  },
+  {
+    "scene": 0,
+    "speaker": "mom",
+    "text": "And please, nobody eat them.",
+    "start": 4.33,
+    "end": 7.0
+  },
+  {
+    "scene": 0,
+    "speaker": "boy",
+    "text": "Even if they look like snacks?",
+    "start": 8.0,
+    "end": 9.46
+  },
+  {
+    "scene": 1,
+    "speaker": "dad",
+    "text": "First up, a rose. Say rose!",
+    "start": 10.18,
+    "end": 13.43
+  },
+  {
+    "scene": 1,
+    "speaker": "girl",
+    "text": "Pretty, but does it bite?",
+    "start": 13.945,
+    "end": 15.715
+  },
+  {
+    "scene": 1,
+    "speaker": "mom",
+    "text": "Those are thorns! Look, don't grab.",
+    "start": 16.231,
+    "end": 19.76
+  },
+  {
+    "scene": 2,
+    "speaker": "mom",
+    "text": "Sunflower! A giant yellow face.",
+    "start": 20.18,
+    "end": 23.698
+  },
+  {
+    "scene": 2,
+    "speaker": "boy",
+    "text": "It's taller than Dad!",
+    "start": 24.698,
+    "end": 26.158
+  },
+  {
+    "scene": 2,
+    "speaker": "dad",
+    "text": "I am still growing, thank you!",
+    "start": 27.158,
+    "end": 29.098
+  },
+  {
+    "scene": 3,
+    "speaker": "dad",
+    "text": "See the tulip? It looks like a cup.",
+    "start": 30.18,
+    "end": 34.77
+  },
+  {
+    "scene": 3,
+    "speaker": "girl",
+    "text": "A cup for fairies!",
+    "start": 35.153,
+    "end": 36.603
+  },
+  {
+    "scene": 3,
+    "speaker": "mom",
+    "text": "No fairy tea today, sweetie.",
+    "start": 36.985,
+    "end": 39.76
+  },
+  {
+    "scene": 4,
+    "speaker": "mom",
+    "text": "This is a daisy. White petals, yellow middle.",
+    "start": 40.18,
+    "end": 44.232
+  },
+  {
+    "scene": 4,
+    "speaker": "boy",
+    "text": "Daisy, will you play with me?",
+    "start": 44.916,
+    "end": 46.356
+  },
+  {
+    "scene": 4,
+    "speaker": "dad",
+    "text": "She says maybe tomorrow!",
+    "start": 47.04,
+    "end": 49.76
+  },
+  {
+    "scene": 5,
+    "speaker": "dad",
+    "text": "Meet the lily, with big smooth petals.",
+    "start": 50.18,
+    "end": 52.14
+  },
+  {
+    "scene": 5,
+    "speaker": "girl",
+    "text": "Lily is my friend's name!",
+    "start": 53.14,
+    "end": 54.72
+  },
+  {
+    "scene": 5,
+    "speaker": "mom",
+    "text": "Then give her a flower high-five.",
+    "start": 55.72,
+    "end": 58.448
+  },
+  {
+    "scene": 6,
+    "speaker": "mom",
+    "text": "Here's a marigold, bright orange and fluffy.",
+    "start": 60.18,
+    "end": 63.779
+  },
+  {
+    "scene": 6,
+    "speaker": "boy",
+    "text": "Is it made of gold?",
+    "start": 64.779,
+    "end": 65.929
+  },
+  {
+    "scene": 6,
+    "speaker": "dad",
+    "text": "I wish! We'd be rich!",
+    "start": 66.929,
+    "end": 69.329
+  },
+  {
+    "scene": 7,
+    "speaker": "dad",
+    "text": "A lotus grows in water, on a pond.",
+    "start": 70.18,
+    "end": 72.84
+  },
+  {
+    "scene": 7,
+    "speaker": "girl",
+    "text": "Does it need swimming lessons?",
+    "start": 73.84,
+    "end": 75.31
+  },
+  {
+    "scene": 7,
+    "speaker": "mom",
+    "text": "It has a floating leaf already!",
+    "start": 76.31,
+    "end": 78.713
+  },
+  {
+    "scene": 8,
+    "speaker": "mom",
+    "text": "Look closely, this red flower is hibiscus.",
+    "start": 80.18,
+    "end": 83.779
+  },
+  {
+    "scene": 8,
+    "speaker": "boy",
+    "text": "Hi, biscuit! Are you yummy?",
+    "start": 84.779,
+    "end": 86.519
+  },
+  {
+    "scene": 8,
+    "speaker": "dad",
+    "text": "Hibiscus. No biting flowers!",
+    "start": 87.519,
+    "end": 89.519
+  },
+  {
+    "scene": 9,
+    "speaker": "dad",
+    "text": "That purple beauty is an orchid.",
+    "start": 90.18,
+    "end": 92.26
+  },
+  {
+    "scene": 9,
+    "speaker": "girl",
+    "text": "Wow, fancy like Mom!",
+    "start": 93.26,
+    "end": 95.42
+  },
+  {
+    "scene": 9,
+    "speaker": "mom",
+    "text": "Finally, someone notices my style!",
+    "start": 96.42,
+    "end": 99.404
+  },
+  {
+    "scene": 10,
+    "speaker": "mom",
+    "text": "Smell this tiny white jasmine flower.",
+    "start": 100.18,
+    "end": 103.315
+  },
+  {
+    "scene": 10,
+    "speaker": "boy",
+    "text": "Mmm! Better than Dad's old socks.",
+    "start": 103.917,
+    "end": 106.477
+  },
+  {
+    "scene": 10,
+    "speaker": "dad",
+    "text": "Hey! My socks are famous!",
+    "start": 107.08,
+    "end": 109.76
+  },
+  {
+    "scene": 11,
+    "speaker": "dad",
+    "text": "Quick quiz! Rose, sunflower, tulip, daisy, lily!",
+    "start": 110.18,
+    "end": 112.225
+  },
+  {
+    "scene": 11,
+    "speaker": "mom",
+    "text": "Marigold, lotus, hibiscus, orchid, jasmine!",
+    "start": 112.545,
+    "end": 116.296
+  },
+  {
+    "scene": 11,
+    "speaker": "girl",
+    "text": "We learned ten flowers! Now snacks, please!",
+    "start": 116.616,
+    "end": 119.76
+  }
+]

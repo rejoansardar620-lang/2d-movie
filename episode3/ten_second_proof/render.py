@@ -22,6 +22,7 @@ import subprocess
 import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+from face_rig import AnimatedFace
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = Path(__file__).resolve().parent / "output"
@@ -162,12 +163,16 @@ class MeshActor:
             im[int(im.shape[0]*.55):,int(im.shape[1]*.82):,3]=0
         if mode == "talk" and role == "dad":
             im[int(im.shape[0]*.49):,int(im.shape[1]*.91):,3]=0
+        source_h,source_w=im.shape[:2]
         h=HEIGHTS[role]
         w=round(im.shape[1]*h/im.shape[0])
+        self.face=AnimatedFace(role,mode,(source_h,source_w),h/source_h)
+        im=self.face.sanitized_source(im)
         self.image=cv2.resize(im,(w,h),interpolation=cv2.INTER_AREA)
         self.h,self.w=self.image.shape[:2]
         self.gy,self.gx=np.mgrid[0:h,0:w].astype(np.float32)
         self.joints={key:(pt[0]*w,pt[1]*h) for key,pt in LANDMARKS[role].items()}
+        self.joints.update(self.face.landmarks())
         self.gaussians={}
         for name,(cx,cy) in self.joints.items():
             if name.startswith("hand"):
@@ -241,22 +246,20 @@ class MeshActor:
              .008*self.h*math.sin(t*2.12)+p.joy*.004*self.h)
         move("brow_l",0,-p.joy*.018*self.h)
         move("brow_r",0,-p.joy*.020*self.h)
-        move("eye_l",p.gaze*.035*self.w,0)
-        move("eye_r",p.gaze*.035*self.w,0)
+        # Calibrated anchors now sit on the real eyes.  Small independent
+        # saccades visibly redirect the illustrated pupils toward family.
+        glance=p.gaze*.6+.38*math.sin(t*3.25+{"dad":0,"mom":1,"boy":2,"girl":3}[self.role])
+        move("eye_l",glance*.047*self.w,0)
+        move("eye_r",glance*.047*self.w,0)
 
-        # Mouth deformation varies with Rhubarb's audio-synchronized visemes:
-        # shape expansion of the actual painted lips, not a floating rectangle.
-        mcx,mcy=self.joints["mouth"]
-        m=self.gaussians["mouth"]
-        dx += -(self.gx-mcx)*m*(.10*p.talk)
-        dy += -(self.gy-mcy)*m*(.95*p.talk)
-        # Compress both painted eyes vertically for frame-accurate blinking.
-        for e in ("eye_l","eye_r"):
-            _,cy=self.joints[e]
-            dy += +(self.gy-cy)*self.gaussians[e]*(4.1*p.blink)
+        # Explicit, independently drawn visemes, moving irises and eyelids
+        # take over from the previous ineffective generic facial mesh warp.
         warped=cv2.remap(self.image,self.gx-dx,self.gy-dy,cv2.INTER_LINEAR,
                          borderMode=cv2.BORDER_CONSTANT,borderValue=(0,0,0,0))
-        return warped
+        line=speaker_at(t)
+        speaking=line is not None and line["speaker"]==self.role
+        symbol=mouth_cue_at(t) if speaking else "X"
+        return self.face.paint(warped,p,t,symbol,dx,dy)
 
 
 ACTORS={role:{mode:MeshActor(role,mode) for mode in ("idle","walk","talk")}

@@ -11,6 +11,7 @@ import numpy as np
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 import render
+from face_rig import FEATURES
 
 
 class PilotChecks(unittest.TestCase):
@@ -55,6 +56,28 @@ class PilotChecks(unittest.TestCase):
             region_a=a[y-7:y+8,x-12:x+13,:3]
             region_b=b[y-7:y+8,x-12:x+13,:3]
             self.assertGreater(np.abs(region_a.astype(int)-region_b.astype(int)).mean(),.5)
+
+    def test_facials_are_calibrated_to_each_art_pose(self):
+        # Explicit per-pose anchors: the old normalized points silently landed
+        # on cheeks or outside the face in this differently cropped art.
+        for role,modes in render.ACTORS.items():
+            for mode,actor in modes.items():
+                eye_l,eye_r,mouth,_=FEATURES[role][mode]
+                source=cv2.imread(str(render.ART/f"{role}_{mode}.png"),cv2.IMREAD_UNCHANGED)
+                self.assertGreater(int(source[eye_l[1],eye_l[0],3]),200)
+                self.assertGreater(int(source[eye_r[1],eye_r[0],3]),200)
+                self.assertGreater(int(source[mouth[1],mouth[0],3]),200)
+                self.assertNotEqual(actor.joints["eye_l"],actor.joints["eye_r"])
+
+    def test_blink_and_visemes_keep_opaque_faces(self):
+        actor=render.ACTORS["dad"]["talk"]
+        closed=actor.deform(2.6,render.Pose(0,0,blink=1,talk=1,gaze=.5))
+        opened=actor.deform(2.6,render.Pose(0,0,blink=0,talk=1,gaze=.5))
+        x,y=map(round,actor.joints["eye_l"])
+        blink_roi=closed[y-5:y+6,x-5:x+6]
+        self.assertGreater(float(blink_roi[:,:,3].mean()),245)
+        self.assertGreater(float(np.abs(closed[y-5:y+6,x-5:x+6,:3].astype(int)-
+                                       opened[y-5:y+6,x-5:x+6,:3].astype(int)).mean()),2.0)
 
     def test_body_art_contiguity_no_separated_head_components(self):
         for role in render.ACTORS:
